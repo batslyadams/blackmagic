@@ -87,6 +87,7 @@
 #define LMI_DID1_LM3S8962      0x10a6U
 #define LMI_DID1_TM4C123GH6PM  0x10a1U
 #define LMI_DID1_TM4C1230C3PM  0x1022U
+#define LMI_DID1_TM4C1237H6PGE 0x1065U
 #define LMI_DID1_TM4C1294NCPDT 0x101fU
 #define LMI_DID1_TM4C1294KCPDT 0x1034U
 
@@ -159,6 +160,11 @@ bool tm4c_probe(target_s *const target, const uint16_t did1)
 	case LMI_DID1_TM4C1230C3PM:
 		target_add_ram32(target, 0x20000000, 0x6000);
 		lmi_add_flash(target, 0x10000);
+		target->target_options |= TOPT_INHIBIT_NRST;
+		break;
+	case LMI_DID1_TM4C1237H6PGE:
+		target_add_ram32(target, 0x20000000, 0x8000);
+		lmi_add_flash(target, 0x40000);
 		target->target_options |= TOPT_INHIBIT_NRST;
 		break;
 	case LMI_DID1_TM4C1294KCPDT:
